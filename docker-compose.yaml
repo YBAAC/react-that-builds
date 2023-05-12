@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  run:
+    build:
+      dockerfile: Dockerfile 
+      context: .
+    volumes:
+      - .:/app
