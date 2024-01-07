@@ -1,8 +1,10 @@
 version: '3.7'
 services:
-  run:
+  nginx:
     build:
-      dockerfile: Dockerfile 
+      dockerfile: Dockerfile
       context: .
-    volumes:
-      - .:/app
+    ports:
+      - 3000:80
+    environment:
+      - NGINX_PORT=3000

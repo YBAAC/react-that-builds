@@ -1,7 +1,16 @@
-FROM node:alpine
+FROM node:20 as build
+# build with bun
+WORKDIR /app
 
-workdir /app
+COPY package.json bun.lockb ./
 
-entrypoint ["/usr/bin/env"]
+RUN npm install -g bun
+RUN bun i
 
-CMD ["tail","-f","/dev/null"]
+COPY . .
+
+RUN bun run build
+
+FROM nginx:stable-alpine3.17
+
+COPY --from=build /app/build /usr/share/nginx/html
